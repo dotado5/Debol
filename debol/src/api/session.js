@@ -6,7 +6,7 @@ import { NextFunction, Request, Response } from 'express';
 
 
 // Create Redis client
-const redisClient = new Redis(process.env.REDIS_URL);
+const redisClient = new Redis(process.env.CACHE_REDIS_URL);
 
 // Initialize RedisStore
 let RedisStore = require('connect-redis')(session)
@@ -26,7 +26,7 @@ let RedisStore = require('connect-redis')(session)
 
 const sessionMiddleware = session({
     store: new RedisStore({ client: redisClient }),
-    secret: process.env.SECRET_COOKIE_PASSWORD,
+    secret: process.env.COOKIE_SECRET,
     resave: false, // required: force lightweight session keep alive (touch)
     saveUninitialized: false, // recommended: only save session when data exists
     cookie: {
@@ -36,6 +36,6 @@ const sessionMiddleware = session({
     },
 });
 
-export const applySession = (req: Request, res: Response, next: NextFunction) => {
+export const applySession = (req, res, next) => {
     return sessionMiddleware(req, res, next);
 };
