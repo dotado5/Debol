@@ -8,7 +8,7 @@
 // }
 
 import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
-import { applySession } from "src/api/session";
+import { applySession } from "../../session";
 
 export async function GET(
   req: MedusaRequest,
