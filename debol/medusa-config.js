@@ -44,11 +44,15 @@ const DB_PORT = process.env.DB_PORT;
 const DB_DATABASE = process.env.DB_DATABASE;
 const DB_URL = process.env.DATABASE_URL;
 
-const DATABASE_URL =
-  `postgres://${DB_USERNAME}:${DB_PASSWORD}` +
-  `@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
+// const DATABASE_URL =
+//   `postgres://${DB_USERNAME}:${DB_PASSWORD}` +
+//   `@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`;
 
-const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
+const DATABASE_URL =
+  "postgres://u1h7akn2nvpdb3:p7b9b4a4277cb87ff450e0682c5eff0e774f49b7a758cbcc288b104e6b104793d@c8lj070d5ubs83.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dacsl73fe6pt4b";
+
+// const REDIS_URL =
+//   "rediss://default:xKdFi9QGG5PMjpRAeVViK7n7xljCI2q5uJGkTv2zsJGvNlAvr5b85Gnb9exw5XtZ@azt1up.stackhero-network.com:9150";
 
 const plugins = [
   `medusa-fulfillment-manual`,
@@ -203,34 +207,32 @@ const modules = {
       redisUrl: REDIS_URL
     }
   },*/
-
-  cacheService: {
-    resolve: "@medusajs/cache-redis",
-    options: {
-      redisUrl: process.env.CACHE_REDIS_URL,
-      ttl: 30,
-    },
-  },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
-  jwtSecret: process.env.JWT_SECRET,
-  cookieSecret: process.env.COOKIE_SECRET,
-  store_cors: STORE_CORS,
+  // jwtSecret: process.env.JWT_SECRET,
+  // cookieSecret: process.env.COOKIE_SECRET,
+  // store_cors: STORE_CORS,
+  // // database_url: DATABASE_URL,
+  // // database_url: DB_URL,
+  // admin_cors: ADMIN_CORS,
+  // database_extra: { ssl: { rejectUnauthorized: false } },
+  // // Uncomment the following lines to enable REDIS
+  // // redis_url: REDIS_URL
+  // redis_url: REDIS_URL,
   // database_url: DATABASE_URL,
-  // database_url: DB_URL,
-  admin_cors: ADMIN_CORS,
-  database_extra: { ssl: { rejectUnauthorized: false } },
-  // Uncomment the following lines to enable REDIS
-  // redis_url: REDIS_URL
+  // database_type: "postgres",
+  // database_extra:
+  //   process.env.NODE_ENV !== "development"
+  //     ? { ssl: { rejectUnauthorized: false } }
+  //     : {},
+
   redis_url: REDIS_URL,
   database_url: DATABASE_URL,
   database_type: "postgres",
-  database_extra:
-    process.env.NODE_ENV !== "development"
-      ? { ssl: { rejectUnauthorized: false } }
-      : {},
+  store_cors: STORE_CORS,
+  admin_cors: ADMIN_CORS,
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
@@ -239,5 +241,3 @@ module.exports = {
   plugins,
   modules,
 };
-
-//  "start": "medusa migrations run && medusa start",
